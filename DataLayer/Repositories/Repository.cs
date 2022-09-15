@@ -19,6 +19,8 @@ namespace DataLayer.Repositories
                 => await context.Set<TEntity>().AsNoTracking().SingleOrDefaultAsync(predicate);
         public virtual async Task<IEnumerable<TEntity>> GetWithIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties)
                 => await Include(includeProperties).ToListAsync();
+        public virtual async Task<TEntity> GetWithIncludeAsync(Expression<Func<TEntity, bool>> predicate, params Expression<Func<TEntity, object>>[] includeProperties)
+                => await Include(includeProperties).SingleOrDefaultAsync(predicate);
         public virtual Task RemoveAsync(TEntity entity)
         {
             context.Set<TEntity>().Remove(entity);

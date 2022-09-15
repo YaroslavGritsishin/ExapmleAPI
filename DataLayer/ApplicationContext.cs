@@ -1,11 +1,16 @@
 ﻿using EntitiesDataLayer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace DataLayer
 {
     public class ApplicationContext: DbContext
     {
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) => Database.Migrate();
+        private readonly IConfiguration confuguration;
+        public ApplicationContext(DbContextOptions<ApplicationContext>options):base(options)
+        {
+            Database.Migrate();
+        }
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<CategoryEntity> Categories { get; set; }
     }
